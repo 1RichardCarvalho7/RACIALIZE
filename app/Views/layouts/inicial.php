@@ -52,7 +52,7 @@
 
         <!-- Troque o arquivo da imagem em img/modelo.png -->
         <div class="col-md-4 d-none d-md-flex justify-content-end align-self-end">
-          <img src="<?= e(url('img/modelo.png')) ?>" alt="Mulher negra de cabelo curto" class="foto-hero">
+          <img src="<?= e(url('public/img/mulhermodelositenegra.png')) ?>" alt="Mulher negra de cabelo curto" class="foto-hero">
         </div>
 
       </div>

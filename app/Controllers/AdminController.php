@@ -80,7 +80,7 @@ class AdminController
             throw $exception;
         }
 
-        header('Location: ' . url('admin/created'));
+        header('Location: ' . url('home/index'));
         exit;
     }
 

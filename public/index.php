@@ -23,8 +23,8 @@ spl_autoload_register(function (string $class): void {
 
 require __DIR__ . '/../app/helpers.php';
 
-$route = trim((string) ($_GET['url'] ?? 'admin/create'), '/');
-$segments = $route === '' ? ['admin', 'create'] : explode('/', $route);
+$route = trim((string) ($_GET['url'] ?? 'home/index'), '/');
+$segments = $route === '' ? ['home', 'index'] : explode('/', $route);
 
 $controllerName = 'App\\Controllers\\' . ucfirst($segments[0]) . 'Controller';
 $method = $segments[1] ?? 'create';

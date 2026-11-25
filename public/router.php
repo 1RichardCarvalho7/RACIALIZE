@@ -9,6 +9,6 @@ if ($path !== '' && is_file(__DIR__ . '/' . $path)) {
 }
 
 $_SERVER['SCRIPT_NAME'] = '/index.php';
-$_GET['url'] = $path !== '' ? $path : 'admin/create';
+$_GET['url'] = $path !== '' ? $path : 'home/index';
 
 require __DIR__ . '/index.php';

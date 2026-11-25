@@ -1,120 +1,29 @@
-:root {
-    --marrom: #65452F;
-    --marrom-escuro: #3E2B20;
-    --mostarda: #D9A83F;
-    --amarelo-claro: #F0D99E;
-    --creme: #F7F1E7;
-    --branco: #FFFFFF;
-}
-
-/* ===== Base ===== */
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background: var(--branco);
-    font-family: 'DM Sans', sans-serif;
-}
-
-/* ===== Banner principal ===== */
+/* Banner principal */
 .hero {
     position: relative;
     height: 62vh;
     min-height: 460px;
     max-height: 650px;
-
     background: var(--creme);
     overflow: hidden;
-
     display: flex;
     flex-direction: column;
+    padding-top: 0;
 }
 
-/* Bloco amarelo do lado direito */
+/* Bloco amarelo */
 .hero::before {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
-
     width: 38%;
     height: 100%;
-
     background: var(--mostarda);
     z-index: 0;
 }
 
-/* ===== Navegação ===== */
-.navbar {
-    position: relative;
-    z-index: 5;
-    padding-top: 16px;
-}
-
-.navbar .container-fluid {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    padding: 0 5%;
-}
-
-/* Links superiores */
-.navbar-nav {
-    gap: 12px !important;
-}
-
-.nav-link {
-    color: var(--marrom-escuro) !important;
-
-    font-size: 0.95rem;
-    font-weight: 600;
-
-    padding: 9px 17px !important;
-
-    background: rgba(101, 69, 47, 0.09);
-    border-radius: 30px;
-
-    transition: .2s ease;
-}
-
-.nav-link:hover {
-    background: var(--marrom);
-    color: var(--branco) !important;
-}
-
-/* ===== Menu hamburguer ===== */
-.btn-hamburguer {
-    width: 38px;
-    height: 30px;
-
-    padding: 0;
-    margin-right: 30px !important;
-
-    background: transparent;
-    border: none;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.btn-hamburguer span {
-    display: block;
-    width: 100%;
-    height: 3px;
-
-    border-radius: 3px;
-    background: var(--marrom-escuro);
-}
-
-/* ===== Conteúdo do banner ===== */
+/* Conteúdo do banner */
 .hero-conteudo {
     flex: 1;
     position: relative;
@@ -127,46 +36,37 @@ body {
     margin: 0;
 }
 
-/* ===== Texto ===== */
+/* Texto */
 .texto-hero {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-
     padding-left: 5.7%;
     text-align: left;
 }
 
 .titulo {
     font-family: 'DM Sans', sans-serif;
-
     color: var(--marrom-escuro);
-
     font-size: clamp(2.8rem, 5.2vw, 4.7rem);
     font-weight: 800;
-
     letter-spacing: -2px;
     line-height: 1.05;
-
     margin-bottom: 20px;
 }
 
 .subtitulo {
     font-family: 'DM Sans', sans-serif;
-
     color: var(--marrom);
-
     font-size: clamp(1rem, 1.4vw, 1.2rem);
     font-weight: 400;
-
     line-height: 1.5;
     margin: 0;
-
     max-width: 440px;
 }
 
-/* ===== Imagem da mulher ===== */
+/* Imagem da mulher */
 .hero-conteudo .col-md-4 {
     height: 100%;
     padding: 0;
@@ -174,54 +74,21 @@ body {
 
 .foto-hero {
     display: block;
-
     height: 100%;
     max-height: 470px;
     max-width: 100%;
-
     width: auto;
-
     object-fit: contain;
     object-position: bottom center;
 }
 
-/* ===== Menu lateral ===== */
-.menu-lateral {
-    background: var(--marrom-escuro);
-    color: var(--branco);
-}
-
-.menu-lateral .offcanvas-title {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-}
-
-.menu-lateral a {
-    display: block;
-    padding: 15px 0;
-
-    color: var(--branco);
-    text-decoration: none;
-
-    font-size: 1rem;
-    font-weight: 500;
-
-    border-bottom: 1px solid rgba(255,255,255,.15);
-}
-
-.menu-lateral a:hover {
-    color: var(--amarelo-claro);
-    padding-left: 8px;
-    transition: .2s ease;
-}
-
-/* ===== Área branca inferior ===== */
+/* Área branca inferior */
 .area-branca {
     min-height: 38vh;
     background: var(--branco);
 }
 
-/* ===== Tablets ===== */
+/* Tablets */
 @media (max-width: 991px) {
     .titulo {
         font-size: 3.2rem;
@@ -230,13 +97,9 @@ body {
     .texto-hero {
         padding-left: 4%;
     }
-
-    .btn-hamburguer {
-        margin-right: 18px !important;
-    }
 }
 
-/* ===== Celulares ===== */
+/* Celulares */
 @media (max-width: 767px) {
     .hero {
         height: 530px;
@@ -245,25 +108,6 @@ body {
 
     .hero::before {
         width: 43%;
-    }
-
-    .navbar .container-fluid {
-        padding: 0 15px;
-    }
-
-    .btn-hamburguer {
-        width: 30px;
-        height: 25px;
-        margin-right: 12px !important;
-    }
-
-    .navbar-nav {
-        gap: 3px !important;
-    }
-
-    .nav-link {
-        font-size: 0.75rem;
-        padding: 7px 9px !important;
     }
 
     .texto-hero {
@@ -293,17 +137,8 @@ body {
     }
 }
 
-/* ===== Celulares pequenos ===== */
+/* Celulares pequenos */
 @media (max-width: 390px) {
-    .nav-link {
-        font-size: 0.68rem;
-        padding: 6px 7px !important;
-    }
-
-    .btn-hamburguer {
-        margin-right: 7px !important;
-    }
-
     .titulo {
         font-size: 1.9rem;
     }

@@ -12,31 +12,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@300;400&display=swap" rel="stylesheet">
 
   <!-- CSS próprio -->
-  <link rel="stylesheet" href="<?= e(url('css/inicial.css')) ?>">
+  <link rel="stylesheet" href="<?= e(url('public/css/style.css')) ?>">
+  <link rel="stylesheet" href="<?= e(url('public/css/inicial.css')) ?>">
 </head>
 <body>
 
+  <?php require __DIR__ . '/../includes/header.php'; ?>
+
   <header class="hero">
-
-    <!-- Barra de navegação: botão hambúrguer + links -->
-    <nav class="navbar navbar-dark">
-      <div class="container-fluid px-4 pt-2">
-
-        <!-- Botão hambúrguer: abre o menu lateral com as categorias -->
-        <button class="btn-hamburguer me-4" type="button"
-                data-bs-toggle="offcanvas" data-bs-target="#menuCategorias"
-                aria-controls="menuCategorias" aria-label="Abrir menu de categorias">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <!-- Links principais -->
-        <ul class="navbar-nav flex-row me-auto gap-4">
-          <li class="nav-item"><a class="nav-link" href="<?= e(url('home/index')) ?>">Inicial</a></li>
-        </ul>
-      </div>
-    </nav>
 
     <!-- Conteúdo do hero: título + subtítulo (à esquerda) e foto (à direita) -->
     <div class="container-fluid hero-conteudo">
@@ -59,27 +42,9 @@
     </div>
   </header>
 
-  <!-- ===== MENU LATERAL (categorias) ===== -->
-  <div class="offcanvas offcanvas-start menu-lateral" tabindex="-1" id="menuCategorias"
-       aria-labelledby="menuCategoriasLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="menuCategoriasLabel">Categorias</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
-    </div>
-    <div class="offcanvas-body">
-      <!-- Cada categoria leva para a página que lista artigos e gráficos dela.
-           Quando o PHP estiver pronto, o link pode virar: categoria.php?id=1 -->
-      <ul class="list-unstyled">
-        <li><a href="#">Entenda o racismo</a></li>
-        <li><a href="#">Conheça seus direitos</a></li>
-        <li><a href="#">Denuncie o racismo</a></li>
-        <li><a href="#">Ações afirmativas e cotas</a></li>
-      </ul>
-    </div>
-  </div>
-
-
   <main class="area-branca"></main>
+
+  <?php require __DIR__ . '/../includes/footer.php'; ?>
 
   <!-- Bootstrap 5 (JS) - necessário para o menu hambúrguer funcionar -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

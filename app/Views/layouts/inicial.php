@@ -34,7 +34,6 @@
         <!-- Links principais -->
         <ul class="navbar-nav flex-row me-auto gap-4">
           <li class="nav-item"><a class="nav-link" href="<?= e(url('home/index')) ?>">Inicial</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Denuncie aqui</a></li>
         </ul>
       </div>
     </nav>
@@ -71,12 +70,10 @@
       <!-- Cada categoria leva para a página que lista artigos e gráficos dela.
            Quando o PHP estiver pronto, o link pode virar: categoria.php?id=1 -->
       <ul class="list-unstyled">
-        <li><a href="#">Seus direitos</a></li>
-        <li><a href="#">Cotas</a></li>
-        <li><a href="#">Como denunciar</a></li>
-        <li><a href="#">Racismo no trabalho</a></li>
-        <li><a href="#">Racismo na educação</a></li>
-        <li><a href="#">Dados e gráficos</a></li>
+        <li><a href="#">Entenda o racismo</a></li>
+        <li><a href="#">Conheça seus direitos</a></li>
+        <li><a href="#">Denuncie o racismo</a></li>
+        <li><a href="#">Ações afirmativas e cotas</a></li>
       </ul>
     </div>
   </div>

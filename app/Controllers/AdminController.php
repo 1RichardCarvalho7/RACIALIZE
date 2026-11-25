@@ -8,43 +8,28 @@ use App\Models\Admin;
 use App\Validators\AdminValidator;
 use PDOException;
 
-class AdminController
+/** Cadastro público do primeiro administrador (administrador geral). */
+class AdminController extends Controller
 {
     /** Exibe o formulário de criação do primeiro administrador. */
     public function create(): void
     {
         if (Admin::hasAny()) {
-            http_response_code(403);
-            $this->render('admins/locked', [
-                'title' => 'Cadastro indisponível',
-            ]);
+            $this->renderLocked();
             return;
         }
 
-        $this->render('admins/create', [
-            'title' => 'Cadastro do administrador',
-            'errors' => [],
-            'old' => [],
-            'csrf' => $this->csrfToken(),
-        ]);
+        $this->renderForm([], []);
     }
 
     /** Recebe e valida os dados enviados pelo formulário. */
     public function store(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            http_response_code(405);
-            exit('Método não permitido.');
-        }
-
-        $this->checkCsrf();
+        $this->requirePost();
 
         // O cadastro público é permitido somente para criar o primeiro administrador.
         if (Admin::hasAny()) {
-            http_response_code(403);
-            $this->render('admins/locked', [
-                'title' => 'Cadastro indisponível',
-            ]);
+            $this->renderLocked();
             return;
         }
 
@@ -62,94 +47,45 @@ class AdminController
 
         if ($errors) {
             http_response_code(422);
-            $this->renderFormWithErrors($errors, $input);
+            $this->renderForm($errors, $input);
             return;
         }
 
         try {
-            Admin::create($input['nome'], $input['senha']);
+            Admin::create($input['nome'], $input['senha'], Admin::NIVEL_GERAL);
         } catch (PDOException $exception) {
             // Também trata uma tentativa simultânea de cadastrar o mesmo usuário.
             if ($exception->getCode() === '23000') {
                 http_response_code(422);
                 $errors['nome'] = 'Este nome de usuário já está em uso.';
-                $this->renderFormWithErrors($errors, $input);
+                $this->renderForm($errors, $input);
                 return;
             }
 
             throw $exception;
         }
 
-        header('Location: ' . url('home/index'));
-        exit;
+        $this->redirect('auth/login');
     }
 
     public function created(): void
     {
-        $this->render('admins/created', [
-            'title' => 'Cadastro concluído',
-        ]);
+        $this->render('admins/created', ['title' => 'Cadastro concluído'], 'main');
     }
 
-    private function renderFormWithErrors(array $errors, array $input): void
+    private function renderForm(array $errors, array $input): void
     {
         $this->render('admins/create', [
             'title' => 'Cadastro do administrador',
             'errors' => $errors,
-            // Não devolve senhas para o formulário após uma validação malsucedida.
-            'old' => [
-                'nome' => $input['nome']
-            ],
-            'csrf' => $this->csrfToken(),
-        ]);
+            // Não devolve senhas para o formulário.
+            'old' => isset($input['nome']) ? ['nome' => $input['nome']] : [],
+        ], 'main');
     }
 
-    private function csrfToken(): string
+    private function renderLocked(): void
     {
-        $this->startSession();
-
-        if (empty($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        }
-
-        return $_SESSION['csrf_token'];
-    }
-
-    private function checkCsrf(): void
-    {
-        $this->startSession();
-
-        $sessionToken = $_SESSION['csrf_token'] ?? '';
-        $formToken = $_POST['csrf_token'] ?? '';
-
-        if (
-            !is_string($sessionToken)
-            || $sessionToken === ''
-            || !is_string($formToken)
-            || !hash_equals($sessionToken, $formToken)
-        ) {
-            http_response_code(403);
-            exit('Token de segurança inválido. Atualize a página e tente novamente.');
-        }
-    }
-
-    private function startSession(): void
-    {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
-    }
-
-    private function render(string $view, array $data = []): void
-    {
-        $viewsPath = __DIR__ . '/../Views/';
-
-        extract($data, EXTR_SKIP);
-
-        ob_start();
-        require $viewsPath . $view . '.php';
-        $content = ob_get_clean();
-
-        require $viewsPath . 'layouts/main.php';
+        http_response_code(403);
+        $this->render('admins/locked', ['title' => 'Cadastro indisponível'], 'main');
     }
 }

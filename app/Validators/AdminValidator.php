@@ -6,8 +6,15 @@ namespace App\Validators;
 
 class AdminValidator
 {
-    /** @return array<string, string> */
-    public function validate(array $input): array
+
+    /**
+     * $passwordRequired false na edição: senha vazia = manter a atual
+     *
+     * @param array $input
+     * @param boolean $passwordRequired
+     * @return array
+     */
+    public function validate(array $input, bool $passwordRequired = true): array
     {
         $errors = [];
 
@@ -21,14 +28,16 @@ class AdminValidator
             $errors['nome'] = 'Use de 3 a 30 caracteres: letras, números, ponto, hífen ou sublinhado.';
         }
 
-        if (strlen($password) < 8) {
-            $errors['senha'] = 'A senha deve possuir pelo menos 8 caracteres.';
-        }
+        if ($passwordRequired || $password !== '' || $passwordConfirmation !== '') {
+            if (strlen($password) < 8) {
+                $errors['senha'] = 'A senha deve possuir pelo menos 8 caracteres.';
+            }
 
-        if ($passwordConfirmation === '') {
-            $errors['confirmar_senha'] = 'Confirme a senha.';
-        } elseif ($password !== $passwordConfirmation) {
-            $errors['confirmar_senha'] = 'As senhas não coincidem.';
+            if ($passwordConfirmation === '') {
+                $errors['confirmar_senha'] = 'Confirme a senha.';
+            } elseif ($password !== $passwordConfirmation) {
+                $errors['confirmar_senha'] = 'As senhas não coincidem.';
+            }
         }
 
         return $errors;

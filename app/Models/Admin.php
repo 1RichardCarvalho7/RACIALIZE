@@ -68,12 +68,13 @@ class Admin
      * @param string $name
      * @return boolean
      */
-    public static function usernameExists(string $name): bool
+    public static function usernameExists(string $name, ?int $exceptId = null): bool
     {
         $stmt = Database::connect()->prepare(
-            'SELECT 1 FROM administrador WHERE nome = :nome LIMIT 1'
+            'SELECT 1 FROM administrador
+             WHERE nome = :nome AND id_administrador <> :id LIMIT 1'
         );
-        $stmt->execute(['nome' => $name]);
+        $stmt->execute(['nome' => $name, 'id' => $exceptId ?? 0]);
 
         return (bool) $stmt->fetchColumn();
     }
@@ -121,18 +122,18 @@ class Admin
      */
     public static function create(
         string $name,
-        string $password
+        string $password,
+        int $level = self::NIVEL_EDITOR
     ): int {
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
         $stmt = Database::connect()->prepare(
-            'INSERT INTO administrador (nome, senhaHash)
-             VALUES (:nome, :senhaHash)'
+            'INSERT INTO administrador (nivelAdministrador, nome, senhaHash)
+             VALUES (:nivel, :nome, :senhaHash)'
         );
 
         $stmt->execute([
+            'nivel' => $level,
             'nome' => $name,
-            'senhaHash' => $passwordHash,
+            'senhaHash' => password_hash($password, PASSWORD_DEFAULT),
         ]);
 
         return (int) Database::connect()->lastInsertId();

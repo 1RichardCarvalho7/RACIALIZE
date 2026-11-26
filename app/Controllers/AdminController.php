@@ -22,16 +22,10 @@ class AdminController extends Controller
         $this->renderForm([], []);
     }
 
-    /** Recebe e valida os dados enviados pelo formulário. */
+     /** Recebe e valida os dados enviados pelo formulário. */
     public function store(): void
     {
         $this->requirePost();
-
-        // O cadastro público é permitido somente para criar o primeiro administrador.
-        if (Admin::hasAny()) {
-            $this->renderLocked();
-            return;
-        }
 
         $input = [
             'nome' => trim((string) ($_POST['nome'] ?? '')),
@@ -41,10 +35,6 @@ class AdminController extends Controller
 
         $errors = (new AdminValidator())->validate($input);
 
-        if (!isset($errors['nome']) && Admin::usernameExists($input['nome'])) {
-            $errors['nome'] = 'Este nome de usuário já está em uso.';
-        }
-
         if ($errors) {
             http_response_code(422);
             $this->renderForm($errors, $input);
@@ -52,17 +42,45 @@ class AdminController extends Controller
         }
 
         try {
-            Admin::create($input['nome'], $input['senha'], Admin::NIVEL_GERAL);
-        } catch (PDOException $exception) {
-            // Também trata uma tentativa simultânea de cadastrar o mesmo usuário.
-            if ($exception->getCode() === '23000') {
+            // Confere novamente se o primeiro acesso continua liberado.
+            if (Admin::hasAny()) {
+                $this->renderLocked();
+                return;
+            }
+
+            if (Admin::usernameExists($input['nome'])) {
                 http_response_code(422);
                 $errors['nome'] = 'Este nome de usuário já está em uso.';
                 $this->renderForm($errors, $input);
                 return;
             }
 
-            throw $exception;
+            // createFirst repete a verificação dentro de um bloqueio do MySQL.
+            if (!Admin::createFirst($input['nome'], $input['senha'])) {
+                if (Admin::hasAny()) {
+                    $this->renderLocked();
+                    return;
+                }
+
+                http_response_code(503);
+                $errors['geral'] = 'Outro cadastro inicial pode estar em andamento. Atualize a página e tente novamente.';
+                $this->renderForm($errors, $input);
+                return;
+            }
+        } catch (PDOException $exception) {
+            // O detalhe técnico fica no log do Apache/PHP, não exposto ao visitante.
+            error_log('Falha no cadastro do primeiro administrador: ' . $exception->getMessage());
+
+            if ($exception->getCode() === '23000') {
+                http_response_code(422);
+                $errors['nome'] = 'Este nome de usuário já está em uso.';
+            } else {
+                http_response_code(500);
+                $errors['geral'] = 'Não foi possível salvar o administrador. Verifique se o MySQL está ativo e se a porta e o banco em config/database.php estão corretos.';
+            }
+
+            $this->renderForm($errors, $input);
+            return;
         }
 
         $this->redirect('auth/login');
@@ -78,9 +96,8 @@ class AdminController extends Controller
         $this->render('admins/create', [
             'title' => 'Cadastro do administrador',
             'errors' => $errors,
-            // Não devolve senhas para o formulário.
             'old' => isset($input['nome']) ? ['nome' => $input['nome']] : [],
-        ], 'main');
+        ], 'minimal');
     }
 
     private function renderLocked(): void

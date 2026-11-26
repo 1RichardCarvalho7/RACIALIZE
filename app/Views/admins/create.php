@@ -1,6 +1,10 @@
 <div class="container py-4">
     <h1 class="mb-4">Cadastro do administrador</h1>
 
+    <?php if (isset($errors['geral'])): ?>
+        <div class="alert alert-danger" role="alert"><?= e($errors['geral']) ?></div>
+    <?php endif; ?>
+
     <form action="<?= e(url('admin/store')) ?>" method="POST">
         <input type="hidden" name="csrf_token" value="<?= e($csrf) ?>">
 

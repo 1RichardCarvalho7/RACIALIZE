@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($title ?? 'Racializa Direitos') ?></title>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
 
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= e(url('public/css/style.css')) ?>">
+
 </head>
 <body>
 
-    <?php require __DIR__ . '/../includes/header.php'; ?>
+    <?php if (empty($semHeaderFooter)) {require __DIR__ . '/../includes/header.php';}?>
 
     <main>
         <?= $content ?>
     </main>
 
-    <?php require __DIR__ . '/../includes/footer.php'; ?>
+    <?php if (empty($semHeaderFooter)) {require __DIR__ . '/../includes/footer.php';}?>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

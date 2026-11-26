@@ -17,17 +17,17 @@
                 <h4>Navegação</h4>
 
                 <a href="<?= e(url('/')) ?>">Inicial</a>
-                <a href="<?= e(url('/entenda-o-racismo')) ?>">Entenda o racismo</a>
-                <a href="<?= e(url('/conheca-seus-direitos')) ?>">Conheça seus direitos</a>
-                <a href="<?= e(url('/denuncie-o-racismo')) ?>">Denuncie o racismo</a>
-                <a href="<?= e(url('/acoes-afirmativas-e-cotas')) ?>">Ações afirmativas e cotas</a>
+                <a href="<?= e(url('/categoria/entenda')) ?>">Entenda o racismo</a>
+                <a href="<?= e(url('/categoria/conheca')) ?>">Conheça seus direitos</a>
+                <a href="<?= e(url('/categoria/denuncie')) ?>">Denuncie o racismo</a>
+                <a href="<?= e(url('/categoria/acoes')) ?>">Ações afirmativas e cotas</a>
             </div>
 
             <div class="col-md-3">
                 <h4>Sobre</h4>
 
-                <a href="<?= e(url('/sobre')) ?>">Sobre o projeto</a>
-                <a href="<?= e(url('/fontes-e-referencias')) ?>">Fontes e referências</a>
+                <a href="<?= e(url('/pagina/sobre')) ?>">Sobre o projeto</a>
+                <a href="<?= e(url('/pagina/referencias')) ?>">Fontes e referências</a>
             </div>
 
         </div>

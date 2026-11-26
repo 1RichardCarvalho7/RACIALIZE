@@ -11,10 +11,4 @@ class PaginaController
     {
         require __DIR__ . '/../Views/layouts/sobre.php';
     }
-
-    /** Exibe a página "Fontes e referências" (estática). */
-    public function referencias(): void
-    {
-        require __DIR__ . '/../Views/layouts/referencias.php';
-    }
 }

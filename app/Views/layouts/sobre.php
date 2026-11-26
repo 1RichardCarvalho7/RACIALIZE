@@ -51,11 +51,11 @@
  
   <main>
  
-    <!-- Missão -->
+    <!-- Nosso objetivo -->
     <section class="sobre-secao container">
       <div class="row gy-4 align-items-start">
         <div class="col-md-4">
-          <h2 class="sobre-secao-titulo">Nossa missão</h2>
+          <h2 class="sobre-secao-titulo">Nosso objetivo</h2>
         </div>
         <div class="col-md-8">
           <!-- Edite os textos abaixo à vontade -->

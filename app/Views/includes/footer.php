@@ -27,7 +27,6 @@
                 <h4>Sobre</h4>
 
                 <a href="<?= e(url('/pagina/sobre')) ?>">Sobre o projeto</a>
-                <a href="<?= e(url('/pagina/referencias')) ?>">Fontes e referências</a>
             </div>
 
         </div>

@@ -1,0 +1,140 @@
+/* ===== Cores (ajuste para ficarem iguais às do inicial.css, se precisar) ===== */
+:root {
+  --sobre-creme: #f8f0e6;
+  --sobre-amarelo: #d9a93f;
+  --sobre-marrom-escuro: #3b2a20;
+  --sobre-marrom: #5b3f30;
+}
+ 
+/* ===== Topo: fundo dividido (creme à esquerda, amarelo à direita) ===== */
+.sobre-topo {
+  background: linear-gradient(to right,
+              var(--sobre-creme) 0 62%,
+              var(--sobre-amarelo) 62% 100%);
+}
+ 
+.sobre-hero {
+  /* só em cima e embaixo, para não zerar o espaço lateral do container-fluid */
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+}
+ 
+/* ===== Lado creme ===== */
+.sobre-hero-texto {
+  padding-left: 6vw;
+}
+ 
+.sobre-titulo {
+  color: var(--sobre-marrom-escuro);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+ 
+.sobre-subtitulo {
+  color: var(--sobre-marrom);
+  font-size: 1.3rem;
+  max-width: 480px;
+  margin: 0;
+}
+ 
+/* ===== Lado amarelo: cartão ===== */
+.sobre-hero-destaque {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 2rem;
+}
+ 
+.sobre-cartao-destaque {
+  background-color: var(--sobre-creme);
+  color: var(--sobre-marrom-escuro);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 380px;
+  box-shadow: 0 10px 30px rgba(59, 42, 32, 0.2);
+}
+ 
+.sobre-cartao-destaque p {
+  margin: 1rem 0 0;
+  font-size: 1.1rem;
+}
+ 
+.sobre-selo {
+  display: inline-block;
+  background-color: var(--sobre-marrom-escuro);
+  color: var(--sobre-creme);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+}
+ 
+/* ===== Seções de texto ===== */
+.sobre-secao {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  color: var(--sobre-marrom);
+  font-size: 1.1rem;
+}
+ 
+.sobre-secao-titulo {
+  color: var(--sobre-marrom-escuro);
+  font-weight: 800;
+  font-size: 2rem;
+}
+ 
+/* ===== Cards dos três pilares ===== */
+.sobre-card {
+  height: 100%;
+  background-color: var(--sobre-creme);
+  border-top: 6px solid var(--sobre-amarelo);
+  border-radius: 14px;
+  padding: 1.8rem;
+}
+ 
+.sobre-card h3 {
+  color: var(--sobre-marrom-escuro);
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+ 
+.sobre-card p {
+  color: var(--sobre-marrom);
+  margin: 0;
+}
+ 
+/* ===== Faixa final ===== */
+.sobre-faixa {
+  background-color: var(--sobre-amarelo);
+  color: var(--sobre-marrom-escuro);
+  padding: 4rem 0;
+}
+ 
+.sobre-faixa h2 {
+  font-weight: 800;
+  font-size: 2.2rem;
+}
+ 
+.sobre-faixa p {
+  font-size: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+ 
+.sobre-botao {
+  display: inline-block;
+  background-color: var(--sobre-marrom-escuro);
+  color: var(--sobre-creme);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.8rem 2rem;
+  border-radius: 999px;
+  transition: opacity 0.2s;
+}
+ 
+.sobre-botao:hover {
+  opacity: 0.85;
+  color: var(--sobre-creme);
+}
+ 
